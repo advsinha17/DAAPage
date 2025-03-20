@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="page">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bron-Kerbosch Algorithm</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 class="pageTitle">Bron-Kerbosch Algorithm</h1>
+    <p class="experimentalText">
+      The Bron-Kerbosch algorithm is backtracking algorithm to find all maximal
+      cliques in a graph. Each maximal clique can be listed in polynomial time.
+      However, the maximum possible number of cliques is exponential, leading to
+      an exponential complexity for enumeration of all maximal cliques. To
+      overcome this, the paper by
+      <a href="https://arxiv.org/abs/1006.5440">David et. al.</a> showed that a
+      parameterized variant of the Bron-Kerbosch algorithm, parameterized by
+      degeneracy of a graph enumerates all maximal cliques in graphs of constant
+      degeneracy in linear time w.r.t the number of vertices in the graph.
+    </p>
+    <h2 class="experimental">Experimental Observations</h2>
+    <p class="experimentalText">
+      The Bron-Kerbosch Algorithm was implemented on the following 3 datasets:
+    </p>
+    <ul>
+      <li class="expList">
+        <b>Enron Email Network:</b>
+        <span
+          >The
+          <a href="https://snap.stanford.edu/data/email-Enron.html"
+            >Enron email network</a
+          >
+          dataset is an email communication dataset with around half a million
+          emails. Nodes of the network are email addresses and if an address i
+          sent at least one email to address j, the graph contains an undirected
+          edge from i to j. This dataset has <b>36,692</b> nodes and
+          <b>183,831</b> edges.
+        </span>
+      </li>
+      <li class="expList">
+        <b>Autonomous systems by Skitter:</b>
+        <span
+          >The
+          <a href="https://snap.stanford.edu/data/as-Skitter.html"
+            >Autonomous systems by skitter</a
+          >
+          dataset represents the connectivity of autonomous systems (AS) on the
+          internet. Nodes of the network are ASes and if an AS i has a
+          connection to AS j, the graph contains a directed edge from i to j.
+          This dataset has <b>1,696,415</b> nodes and <b>11,095,298</b> edges.
+        </span>
+      </li>
+      <li class="expList">
+        <b>Wikipedia vote network:</b>
+        <span
+          >The
+          <a href="https://snap.stanford.edu/data/as-Skitter.html"
+            >Wikipedia vote network</a
+          >
+          dataset captures votes from Wikipedia administrator elections. Nodes
+          of the network are Wikipedia users and if a user i has voted for user
+          j, the graph contains a directed edge from i to j. This dataset has
+          <b>7,115</b> nodes and <b>103,689</b> edges.
+        </span>
+      </li>
+    </ul>
+
+    <span class="experimentalText"
+      >The largest size of a clique and the number of maximal cliques in each
+      dataset is given below in Table 1.</span
+    >
+
+    <table class="dataTable">
+      <thead>
+        <tr>
+          <th class="tableHead">Dataset</th>
+          <th class="tableHead">Largest Size of the Clique</th>
+          <th class="tableHead">Number of Maximal Cliques</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tableData">Enron Email Network</td>
+          <td class="tableData">20</td>
+          <td class="tableData">24k</td>
+        </tr>
+        <tr>
+          <td class="tableData">Autonomous systems by Skitter</td>
+          <td class="tableData">7</td>
+          <td class="tableData">20</td>
+        </tr>
+        <tr>
+          <td class="tableData">Wikipedia vote network</td>
+          <td class="tableData">4</td>
+          <td class="tableData">8</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="tableCapt">
+      Table 1: Largest size of clique and Number of maximal cliques in each
+      dataset
+    </p>
+  </body>
+</html>
