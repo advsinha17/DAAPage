@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" class="page">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CLIQUE Algorithm</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body class="pageBody">
+    <div class="pageHeader">
+      <a href="/" class="backButton"> <i class="fas fa-home"></i></a>
+      <h1 class="pageTitle">CLIQUE Algorithm</h1>
+    </div>
+    <div class="mainBody">
+      <h2 class="algoDesc">Algorithm Description</h2>
+
+      <p class="algoText">
+        The Bron-Kerbosch algorithm is backtracking algorithm to find all
+        maximal cliques in a graph. Each maximal clique can be listed in
+        polynomial time. However, the maximum possible number of cliques is
+        exponential, leading to an exponential complexity for enumeration of all
+        maximal cliques. To overcome this, the paper by
+        <a href="https://arxiv.org/abs/1006.5440">David et. al.</a> showed that
+        a parameterized variant of the Bron-Kerbosch algorithm, parameterized by
+        degeneracy of a graph enumerates all maximal cliques in graphs of
+        constant degeneracy in linear time w.r.t the number of vertices in the
+        graph.<br /><br />
+        The Bron-Kerbosch algorithm uses 3 disjoint sets of vertices:<br />
+        <ul>
+          <li>P: the set of vertices to be included in the current clique</li>
+          <li>R: the current clique</li>
+          <li>X: the set of vertices that are not yet included in the current clique</li>
+        </ul>
+      </p>
+      <p class="algoText">
+        R is clique such that P ∪ X = Γ(R) are the vertices adjacent to every vertex 
+        in R. The algorithm will choose an element <i>v</i> from P to add to the 
+        clique and makes a recursive call after moving <i>v</i> from P to R. 
+        When this recursive call completes, the element <i>v</i> will be moved 
+        to X to eliminate redundant calls. The algorithm uses the concept of pivoting 
+        to limit the number of recursive calls. It follows the pivoting method described 
+        by <a href="https://snap.stanford.edu/class/cs224w-readings/tomita06cliques.pdf">Tomita et. al.</a> which chooses pivot <i>u</i> from P∪X in order
+        to maximize |P ∩ Γ(u)|.
+        The algorithm computes a degeneracy ordering of the given graph and
+        performs the outermost recursive calls in the ordered variant of the
+        Bron–Kerbosch algorithm (without pivoting) for this ordering. After the
+        top level of the recursion it uses the pivoting version of the
+        Bron-Kerbosch algorithm.
+        <br /><br />
+        The psuedocode for the Bron-Kerbosch pivoting algorithm is as follows:
+      </p>
+      <pre class="codeBlock">
+        <code>
+            proc BronKerboschPivot(P, R, X)
+              if P ∪ X = Φ then
+                report R as a maximal clique
+              end if
+              choose a pivot u ∈ P ∪ X {Tomita et al. choose u to maximize |P ∩ Γ(u)|}
+              for each vertex v ∈ P\Γ(u) do
+                BronKerboschPivot(P ∩ Γ(v), R ∪ {v}, X ∩ Γ(v))
+                P ← P\ {v}
+                X ← X ∪ {v}
+              end for
+        </code>
+      </pre>
+      <p class="algoText">
+        The top level of recursion is done using the following code:
+      </p>
+      <pre class="codeBlock">
+        <code>
+            proc BronKerboschDegeneracy(V, E)
+              for each vertex <i>v<sub>i</sub></i>
+
+              in a degeneracy ordering <i>v<sub>0</sub></i>, <i>v<sub>1</sub></i>, <i>v<sub>2</sub></i>, . . . of (V,E) do
+                P ← Γ (<i>v<sub>i</sub></i>) ∩ {<i>v<sub>i + 1</sub></i>,..., <i>v<sub>n - 1</sub></i>}
+                X ← Γ (<i>v<sub>i</sub></i>) ∩ {<i>v<sub>0</sub></i>,..., <i>v<sub>i - 1</sub></i>}
+                BronKerboschPivot(P, {<i>v<sub>i</sub></i>}, X)
+              end for
+        </code>
+      </pre>
+      <p class="algoText">
+        <b>Time Complexity of the Algorithm:</b> <i>O(dn3<sup>d/3</sup>)</i>,
+        where <i>d</i> is the degeneracy of the graph.
+      </p>
+      <h2 class="experimental">
+        Implementation details and Experimental Observations
+      </h2>
+      <p class="algoText">
+        The algorithm was run on an M1 MacBook Air with 16GB RAM and using the
+        -O3 optimization flag during compilation. The algorithm was run on the
+        Enron email network, Autonomous systems by Skitter, and Wikipedia vote
+        network datasets. The largest size of a clique and the number of maximal
+        cliques in each dataset is given below in <b>Table 1</b>. The Email
+        enron network took <b>1.13 seconds</b>, the Autonomous systems by
+        Skitter took <b>213 seconds (3 minutes, 33 seconds)</b>, and the
+        Wikipedia vote network took <b>1.51 seconds</b> to run the algorithm.<br /><br />
+      </p>
+      <div class="container">
+        <div id="runtimeBarChart"></div>
+      </div>
+      <p class="algoText" style="padding-bottom: 40px">
+        The graph was stored as an adjacency list using a vector of sets, to
+        allow for efficient search of neighbors of a vertex. We experimented
+        with different methods to store the P and X sets in the Bron-Kerbosch
+        algorithm. We found that implementing both P and X as vectors was the
+        most efficient. Further, to find the pivot element, we found that
+        iterating over the elements of P to determine the intersection
+        significantly improved the running time, likely due to the fact that P
+        often contains few elements, thus leading to lesser iterations of the
+        loop. This is in contrast to the pivot finding implemented in Tomita, as
+        the Tomita algorithm is called initially with both sets containing all
+        vertices.
+      </p>
+      <script>
+        const datasets = [
+          "Enron Email",
+          "Autonomous systems",
+          "Wikipedia vote",
+        ];
+
+        const runtimes = [1.13, 213, 1.51];
+
+        const data = [
+          {
+            x: datasets,
+            y: runtimes,
+            type: "bar",
+            marker: {
+              color: "blue",
+            },
+          },
+        ];
+
+        const layout = {
+          title: "Runtime by Dataset",
+          xaxis: {
+            title: "Dataset Name",
+            tickangle: -45,
+          },
+          yaxis: {
+            title: "Runtime (s)",
+            titlefont: { size: 14 },
+          },
+          margin: { b: 200, t: 150 },
+        };
+
+        Plotly.newPlot("runtimeBarChart", data, layout);
+      </script>
+    </div>
+  </body>
+</html>
