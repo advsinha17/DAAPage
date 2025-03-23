@@ -263,9 +263,7 @@ The following 3 algorithms were implemented to enumerate the maximal cliques in 
         iterating over the elements of P to determine the intersection
         significantly improved the running time, likely due to the fact that P
         often contains few elements, thus leading to fewer iterations of the
-        loop. This is in contrast to the pivot finding implemented in Tomita, as
-        the Tomita algorithm is called initially with both sets containing all
-        vertices.
+        loop. 
         <br /><br />
         We attempted to optimize the algorithm by making use of a 0/1 hash table to implement the sets P and X. 
         Doing this allowed us to perform searches for elements in P or X in constant time. However, the overhead 
