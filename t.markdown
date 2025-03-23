@@ -1,4 +1,4 @@
----
+<!-- ---
 # Feel free to add content and custom Front Matter to this file.
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
@@ -19,11 +19,11 @@ The following 3 algorithms were implemented to enumerate the maximal cliques in 
 
 The goal of the assignment is implement maximal clique enumeration algorithm from three given papers.
 
-1. The worst-case time complexity for generating all maximal cliques and computational experiments.
+1. The worst-case time complexity for generating all maximal cliques and computational experiments. \[[Bron-Kerbosch Algorithm](/bka)\]
 
-2. Listing All Maximal Cliques in Sparse Graphs in Near-Optimal Time
+2. Listing All Maximal Cliques in Sparse Graphs in Near-Optimal Time. \[[CLIQUE Algorithm](/tomita)\]
 
-3. Arboricity and Subgraph Listing Algorithms
+3. Arboricity and Subgraph Listing Algorithms. \[[Chiba Arboricity Algorithm](/chiba)\]
 
 A clique is a collection of vertices wherein every pair of vertices is connected to each other. In other words, a clique is a subset of an undirected graph where each vertex is adjacent to each other. A maximal clique is a clique in which another vertex cannot be added while remaining to be a clique (i.e the largest number of vertices that can be added to maintain the property of each vertex being adjacent to each other).
 
@@ -33,8 +33,10 @@ A clique is a collection of vertices wherein every pair of vertices is connected
 - Biological Applications: Proteins can be represented as nodes and their interactions can be modelled in edges. In this case, finding maximal cliques indicate the presence of a functional protein complex
 - Frequency Allocation in Wireless Communication: Wireless devices can be represented as nodes and an edge is marked between the nodes if the devices can interfere with each other. In this case, finding maximal cliques can identify groups of devices for which the same frequency should not be allocated.
 
-As a part of the assignment, the following algorithms have been implemented.
+### Datasets
 
-- [Bron Kerbosch Algorithm](/bka)
-- [Chiba](/chiba)
-- [Tomita](/tomita)
+The implementations for all the algorithms were tested using the following 3 datasets:
+
+- [Email Enron Network](/email)
+- [Autonomous Systems by Skitter](/skitter)
+- [Wikipedia Vote Network](/wiki) -->
